@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}Book Appointment{% endblock %}
+
+{% block content %}
+    <h2>Schedule New Appointment</h2>
+    <form method="POST">
+        <label for="doctor_id">Doctor ID (Optional, leave blank for any available):</label>
+        <input type="number" id="doctor_id" name="doctor_id"><br><br>
+
+        <label for="appointment_datetime">Date and Time:</label>
+        <input type="datetime-local" id="appointment_datetime" name="appointment_datetime" required><br><br>
+
+        <button type="submit">Request Appointment</button>
+    </form>
+    <p><a href="{{ url_for('patient_dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}

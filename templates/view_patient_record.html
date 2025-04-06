@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block title %}Patient Record{% endblock %}
+
+{% block content %}
+    <h2>Patient Record for Appointment ID: {{ appointment.appointment_id }}</h2>
+    <h3>Patient: {{ patient.name }}</h3>
+
+    <h3>Triage Information</h3>
+    {% if triage %}
+        <p>Symptoms: {{ triage.symptoms }}</p>
+        <p>Blood Pressure: {{ triage.blood_pressure }}</p>
+        <p>Temperature: {{ triage.temperature }}</p>
+        <p>Pulse Rate: {{ triage.pulse_rate }}</p>
+        <p>Triage Notes: {{ triage.notes }}</p>
+    {% else %}
+        <p>No triage information available.</p>
+    {% endif %}
+
+    <h3>Appointment Outcome and Prescription</h3>
+    <form method="POST">
+        <label for="outcome">Outcome:</label>
+        <textarea id="outcome" name="outcome"></textarea><br><br>
+
+        <label for="medication_name">Medication Name (Optional):</label>
+        <input type="text" id="medication_name" name="medication_name"><br><br>
+
+        <label for="dosage">Dosage (Optional):</label>
+        <input type="text" id="dosage" name="dosage"><br><br>
+
+        <label for="prescription_notes">Prescription Notes (Optional):</label>
+        <textarea id="prescription_notes" name="prescription_notes"></textarea><br><br>
+
+        <button type="submit">Save Outcome and Complete Visit</button>
+        {% if follow_up_option %}
+            <button type="button">Schedule Follow-up Appointment</button>
+        {% endif %}
+    </form>
+
+    <h3>Past Records</h3>
+    <p><a href="{{ url_for('doctor_dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block title %}View Prescriptions{% endblock %}
+
+{% block content %}
+    <h2>Prescriptions</h2>
+    {% if prescriptions %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Prescription ID</th>
+                    <th>Medication</th>
+                    <th>Dosage</th>
+                    <th>Notes</th>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prescription in prescriptions %}
+                    <tr>
+                        <td>{{ prescription.prescription_id }}</td>
+                        <td>{{ prescription.medication_name }}</td>
+                        <td>{{ prescription.dosage }}</td>
+                        <td>{{ prescription.notes }}</td>
+                        <td>{{ prescription.patient_name }}</td>
+                        <td>{{ prescription.doctor_name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="{{ url_for('view_prescriptions', page=page-1) }}">Previous</a>
+            {% endif %}
+            <span>Page {{ page }} of {{ total_pages }}</span>
+            {% if page < total_pages %}
+                <a href="{{ url_for('view_prescriptions', page=page+1) }}">Next</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No prescriptions found.</p>
+    {% endif %}
+    <p><a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block title %}View Appointments{% endblock %}
+
+{% block content %}
+    <h2>Appointments</h2>
+    {% if appointments %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date/Time</th>
+                    <th>Status</th>
+                    <th>Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.appointment_id }}</td>
+                        <td>{{ appointment.patient_name }}</td>
+                        <td>{{ appointment.doctor_name }}</td>
+                        <td>{{ appointment.appointment_datetime }}</td>
+                        <td>
+                            {% if appointment.is_cancelled %}Cancelled{% elif appointment.has_checked_in %}Checked In{% else %}Scheduled{% endif %}
+                        </td>
+                        <td>{{ appointment.outcome }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="{{ url_for('view_appointments', page=page-1) }}">Previous</a>
+            {% endif %}
+            <span>Page {{ page }} of {{ total_pages }}</span>
+            {% if page < total_pages %}
+                <a href="{{ url_for('view_appointments', page=page+1) }}">Next</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No appointments found.</p>
+    {% endif %}
+    <p><a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}

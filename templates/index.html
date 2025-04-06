@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <h2>Welcome to Rad Health Center</h2>
+        <p>Your trusted partner in health and well-being.</p>
+        <div class="hero-buttons">
+            <a href="{{ url_for('signup') }}" class="button primary">Become a Patient</a>
+            <a href="{{ url_for('login') }}" class="button secondary">Login</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <h3>Our Services</h3>
+        <div class="card-container">
+            <div class="card">
+                <h4>General Medical Consultations</h4>
+                <p>Get expert advice and care from our experienced medical professionals.</p>
+            </div>
+            <div class="card">
+                <h4>Appointment Booking</h4>
+                <p>Book appointments with ease using our streamlined scheduling system.</p>
+            </div>
+            <div class="card">
+                <h4>Prescription Management</h4>
+                <p>Manage your prescriptions and get refills conveniently through our platform.</p>
+            </div>
+            <div class="card">
+                <h4>And More...</h4>
+                <p>Explore a wide range of additional services tailored to your health needs.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

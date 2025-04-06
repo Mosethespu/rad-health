@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}Perform Triage{% endblock %}
+
+{% block content %}
+    <h2>Perform Triage for Appointment ID: {{ appointment.appointment_id }}</h2>
+    <h3>Patient: {{ patient.name }}</h3>
+    <form method="POST">
+        <label for="symptoms">Symptoms:</label>
+        <textarea id="symptoms" name="symptoms"></textarea><br><br>
+
+        <label for="blood_pressure">Blood Pressure (e.g., 120/80):</label>
+        <input type="text" id="blood_pressure" name="blood_pressure"><br><br>
+
+        <label for="temperature">Temperature (°C):</label>
+        <input type="number" step="0.1" id="temperature" name="temperature"><br><br>
+
+        <label for="pulse_rate">Pulse Rate (bpm):</label>
+        <input type="number" id="pulse_rate" name="pulse_rate"><br><br>
+
+        <label for="notes">Additional Notes:</label>
+        <textarea id="notes" name="notes"></textarea><br><br>
+
+        <button type="submit">Complete Triage and Send to Doctor</button>
+    </form>
+    <p><a href="{{ url_for('view_pending_triage') }}">Back to Pending Appointments</a></p>
+{% endblock %}

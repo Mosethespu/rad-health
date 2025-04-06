@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block title %}View {{ record_type|capitalize }} Records{% endblock %}
+
+{% block content %}
+    <h2>{{ record_type|capitalize }} Records</h2>
+    {% if records %}
+        <table>
+            <thead>
+                <tr>
+                    {% if record_type == 'patients' %}
+                        <th>Patient ID</th>
+                        <th>Name</th>
+                        <th>Date of Birth</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                    {% elif record_type == 'staff' %}
+                        <th>Role</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                    <tr>
+                        {% if record_type == 'patients' %}
+                            <td>{{ record.patient_id }}</td>
+                            <td>{{ record.name }}</td>
+                            <td>{{ record.date_of_birth }}</td>
+                            <td>{{ record.email }}</td>
+                            <td>{{ record.phone_number }}</td>
+                        {% elif record_type == 'staff' %}
+                            <td>{{ record.role }}</td>
+                            <td>{{ record.name }}</td>
+                            <td>{{ record.username }}</td>
+                            <td>{{ record.email }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="{{ url_for('view_records', record_type=record_type, page=page-1) }}">Previous</a>
+            {% endif %}
+            <span>Page {{ page }} of {{ total_pages }}</span>
+            {% if page < total_pages %}
+                <a href="{{ url_for('view_records', record_type=record_type, page=page+1) }}">Next</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No records found.</p>
+    {% endif %}
+    <p><a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}

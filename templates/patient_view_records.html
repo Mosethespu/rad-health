@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %}Your Medical Records{% endblock %}
+
+{% block content %}
+    <h2>Your Medical Records</h2>
+    {% if records %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Date</th>
+                    <th>Outcome</th>
+                    <th>Medication</th>
+                    </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                    <tr>
+                        <td>{{ record.appointment_id }}</td>
+                        <td>{{ record.appointment_datetime }}</td>
+                        <td>{{ record.outcome }}</td>
+                        <td>{{ record.medication_name }} ({{ record.dosage }})</td>
+                        </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No medical records found.</p>
+    {% endif %}
+    <p><a href="{{ url_for('patient_dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}

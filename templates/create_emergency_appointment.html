@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}Emergency Appointment{% endblock %}
+
+{% block content %}
+    <h2>Create Emergency Appointment - {{ service_type|capitalize }}</h2>
+    <form method="POST">
+        <label for="patient_identifier">Patient ID (or Name if new):</label>
+        <input type="text" id="patient_identifier" name="patient_identifier" required><br><br>
+        {% if service_type == 'maternity' %}
+            <label for="condition">Condition:</label>
+            <textarea id="condition" name="condition"></textarea><br><br>
+            {% elif service_type == 'hdu' %}
+            <label for="reason">Reason for HDU Admission:</label>
+            <textarea id="reason" name="reason"></textarea><br><br>
+            {% elif service_type == 'surgery' %}
+            <label for="procedure">Procedure:</label>
+            <input type="text" id="procedure" name="procedure"><br><br>
+            {% endif %}
+        <button type="submit">Create Emergency Appointment</button>
+    </form>
+    <p><a href="{{ url_for('doctor_dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}

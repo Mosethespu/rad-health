@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block title %}Create New {{ role|capitalize }}{% endblock %}
+
+{% block content %}
+    <h2>Create New {{ role|capitalize }}</h2>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    <form method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        {% if role == 'doctor' %}
+            <label for="specialization">Specialization:</label>
+            <input type="text" id="specialization" name="specialization"><br><br>
+        {% endif %}
+
+        <label for="phone_number">Phone Number:</label>
+        <input type="tel" id="phone_number" name="phone_number"><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+
+        <button type="submit">Create {{ role|capitalize }}</button>
+    </form>
+    <p><a href="{{ url_for('admin_dashboard') }}">Back to Admin Dashboard</a></p>
+{% endblock %}

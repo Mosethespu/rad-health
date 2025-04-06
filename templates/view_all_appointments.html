@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}View All Appointments{% endblock %}
+
+{% block content %}
+    <h2>All Appointments</h2>
+    <form method="GET" action="{{ url_for('view_all_appointments') }}">
+        <input type="text" name="search" placeholder="Search by patient, doctor, or date" value="{{ search_query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if appointments %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date/Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.appointment_id }}</td>
+                        <td>{{ appointment.patient_name }}</td>
+                        <td>{{ appointment.doctor_name }}</td>
+                        <td>{{ appointment.appointment_datetime }}</td>
+                        <td>
+                            {% if appointment.is_cancelled %}Cancelled{% elif appointment.has_checked_in %}Checked In{% else %}Scheduled{% endif %}
+                        </td>
+                        <td>
+                            {% if not appointment.is_cancelled %}
+                                <form method="POST" action="{{ url_for('check_in_patient', appointment_id=appointment.appointment_id) }}" style="display:inline;">
+                                    <button type="submit">Check In</button>
+                                </form>
+                                <form method="POST" action="{{ url_for('cancel_appointment', appointment_id=appointment.appointment_id) }}" style="display:inline;">
+                                    <button type="submit">Cancel</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="{{ url_for('view_all_appointments', page=page-1, search=search_query) }}">Previous</a>
+            {% endif %}
+            <span>Page {{ page }} of {{ total_pages }}</span>
+            {% if page < total_pages %}
+                <a href="{{ url_for('view_all_appointments', page=page+1, search=search_query) }}">Next</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No appointments found.</p>
+    {% endif %}
+    <p><a href="{{ url_for('receptionist_dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}

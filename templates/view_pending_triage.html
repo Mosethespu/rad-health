@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %}Pending Triage Appointments{% endblock %}
+
+{% block content %}
+    <h2>Pending Triage Appointments</h2>
+    {% if appointments %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Patient Name</th>
+                    <th>Appointment Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.appointment_id }}</td>
+                        <td>{{ appointment.patient_name }}</td>
+                        <td>{{ appointment.appointment_datetime }}</td>
+                        <td><a href="{{ url_for('perform_triage', appointment_id=appointment.appointment_id) }}">Perform Triage</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No appointments pending triage.</p>
+    {% endif %}
+    <p><a href="{{ url_for('nurse_dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}
