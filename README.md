@@ -121,10 +121,10 @@ The following roles and credentials are available for testing:
 | **Role**         | **Username** | **Password** |
 |-------------------|--------------|--------------|
 | Admin            | admin        | admin123     |
-| Receptionist     | recept_user  | password123  |
-| Doctor           | doc_user     | password123  |
-| Nurse            | nurse_user   | password123  |
-| Patient          | patient_user | password123  |
+| Receptionist     | rrecept_linda1 | receptpass1  |
+| Doctor           | doc_john1     | password123  |
+| Nurse            | nurse_elizabeth1   | nursepass1  |
+| Patient          | george10 | patient1  |
 
 ---
 
