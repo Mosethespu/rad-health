@@ -8,41 +8,46 @@
 </head>
 <body>
     <header>
-        <h1>Rad Health Center</h1>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                {% if not session.get('user_id') %}
-                    <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
-                {% else %}
-                    <li>
-                        {% if session['user_role'] == 'patient' %}
-                            Patient:
-                        {% elif session['user_role'] == 'doctor' %}
-                            Doctor:
-                        {% elif session['user_role'] == 'receptionist' %}
-                            Receptionist:
-                        {% elif session['user_role'] == 'nurse' %}
-                            Nurse:
-                        {% elif session['user_role'] == 'admin' %}
-                            Admin:
+        <div class="header-container">
+            <h1 class="logo">Rad Health Center</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    {% if not session.get('user_id') %}
+                        <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                    {% else %}
+                        <li>
+                            {% if session['user_role'] == 'patient' %}
+                                Patient:
+                            {% elif session['user_role'] == 'doctor' %}
+                                Doctor:
+                            {% elif session['user_role'] == 'receptionist' %}
+                                Receptionist:
+                            {% elif session['user_role'] == 'nurse' %}
+                                Nurse:
+                            {% elif session['user_role'] == 'admin' %}
+                                Admin:
+                            {% endif %}
+                            {{ session.get('username') }}
+                        </li>
+                        {% if session['user_role'] == 'admin' %}
+                            <li><a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a></li>
                         {% endif %}
-                        {{ session.get('username') }}
-                    </li>
-                    {% if session['user_role'] == 'admin' %}
-                        <li><a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a></li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     {% endif %}
-                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                {% endif %}
-            </ul>
-        </nav>
+                </ul>
+            </nav>
+        </div>
     </header>
     <main>
         {% block content %}{% endblock %}
     </main>
     <footer>
-        <p>&copy; 2025 Rad Health Center</p>
+        <div class="footer-container">
+            <p>&copy; 2025 Rad Health Center</p>
+            <p>Designed with ❤️ for better healthcare</p>
+        </div>
     </footer>
 </body>
 </html>

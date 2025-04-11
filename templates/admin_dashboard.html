@@ -4,24 +4,29 @@
 
 {% block content %}
     <h2>Welcome, Admin!</h2>
-    <div class="dashboard-actions">
-        <h3>Staff Management</h3>
-        <ul>
-            <li><a href="{{ url_for('create_staff', role='doctor') }}">Create New Doctor</a></li>
-            <li><a href="{{ url_for('create_staff', role='receptionist') }}">Create New Receptionist</a></li>
-            <li><a href="{{ url_for('create_staff', role='nurse') }}">Create New Nurse</a></li>
-        </ul>
-        <h3>View Records</h3>
-        <h3>View Records</h3>
-        <ul>
-            <li><a href="{{ url_for('view_records', record_type='patients') }}">View Patient Records</a></li>
-            <li><a href="{{ url_for('view_records', record_type='staff') }}">View Staff Records</a></li>
-            <li><a href="{{ url_for('view_prescriptions') }}">View Prescriptions</a></li>
-            <li><a href="{{ url_for('view_appointments') }}">View Appointments</a></li>
-        </ul>
-        <h3>Other Functions</h3>
-        <ul>
-            <li><a href="{{ url_for('index') }}">View Homepage</a></li>
-        </ul>
+    <div class="dashboard-container">
+        <div class="card">
+            <h3>Staff Management</h3>
+            <ul>
+                <li><a href="{{ url_for('create_staff', role='doctor') }}" class="button">Create New Doctor</a></li>
+                <li><a href="{{ url_for('create_staff', role='receptionist') }}" class="button">Create New Receptionist</a></li>
+                <li><a href="{{ url_for('create_staff', role='nurse') }}" class="button">Create New Nurse</a></li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>View Records</h3>
+            <ul>
+                <li><a href="{{ url_for('view_records', record_type='patients') }}" class="button">View Patient Records</a></li>
+                <li><a href="{{ url_for('view_records', record_type='staff') }}" class="button">View Staff Records</a></li>
+                <li><a href="{{ url_for('view_prescriptions') }}" class="button">View Prescriptions</a></li>
+                <li><a href="{{ url_for('view_appointments') }}" class="button">View Appointments</a></li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Other Functions</h3>
+            <ul>
+                <li><a href="{{ url_for('index') }}" class="button">View Homepage</a></li>
+            </ul>
+        </div>
     </div>
 {% endblock %}

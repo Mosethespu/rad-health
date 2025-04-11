@@ -4,16 +4,16 @@
 
 {% block content %}
     <h2>Welcome, Nurse {{ session['username'] }}!</h2>
-    <div class="dashboard-summary">
+    <div class="dashboard-container">
+        <div class="card">
+            <h3>Triage Actions</h3>
+            <ul>
+                <li><a href="{{ url_for('view_pending_triage') }}" class="button">View Pending Triage Appointments</a></li>
+                <li><a href="#" class="button">View Daily Triage Records</a></li>
+                <li><a href="#" class="button">View Weekly Triage Records</a></li>
+                <li><a href="#" class="button">View Monthly Triage Records</a></li>
+                <li><a href="#" class="button">View Past Triage Records</a></li>
+            </ul>
         </div>
-    <div class="dashboard-actions">
-        <h3>Triage Actions</h3>
-        <ul>
-            <li><a href="{{ url_for('view_pending_triage') }}">View Pending Triage Appointments</a></li>
-            <li><a href="#">View Daily Triage Records</a></li>
-            <li><a href="#">View Weekly Triage Records</a></li>
-            <li><a href="#">View Monthly Triage Records</a></li>
-            <li><a href="#">View Past Triage Records</a></li>
-        </ul>
     </div>
 {% endblock %}

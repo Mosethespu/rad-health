@@ -773,6 +773,68 @@ def view_all_appointments():
 
     return render_template('view_all_appointments.html', appointments=appointments, page=page, total_pages=total_pages, search_query=search_query)
 
+@app.route('/receptionist/view_patient_records', methods=['GET'])
+@login_required('receptionist')
+def view_patient_records():
+    search_query = request.args.get('search', '')
+    start_date = request.args.get('start_date', '')
+    end_date = request.args.get('end_date', '')
+    page = int(request.args.get('page', 1))
+    per_page = 10
+    offset = (page - 1) * per_page
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    # Base query
+    query = """
+        SELECT patient_id, name, date_of_birth, address, phone_number, email, registration_date
+        FROM patients
+    """
+    conditions = []
+    params = []
+
+    # Add search filter
+    if search_query:
+        conditions.append("(name LIKE ? OR email LIKE ? OR phone_number LIKE ?)")
+        params.extend([f"%{search_query}%", f"%{search_query}%", f"%{search_query}%"])
+
+    # Add date filter
+    if start_date:
+        conditions.append("registration_date >= ?")
+        params.append(start_date)
+    if end_date:
+        conditions.append("registration_date <= ?")
+        params.append(end_date)
+
+    # Combine conditions
+    if conditions:
+        query += " WHERE " + " AND ".join(conditions)
+
+    # Add pagination
+    query += " ORDER BY registration_date DESC LIMIT ? OFFSET ?"
+    params.extend([per_page, offset])
+
+    cursor.execute(query, params)
+    records = cursor.fetchall()
+
+    # Get total count for pagination
+    cursor.execute("SELECT COUNT(*) FROM patients")
+    total_records = cursor.fetchone()[0]
+    total_pages = (total_records + per_page - 1) // per_page
+
+    close_db(conn)
+
+    return render_template(
+        'view_patient_records.html',
+        records=records,
+        search_query=search_query,
+        start_date=start_date,
+        end_date=end_date,
+        page=page,
+        total_pages=total_pages
+    )
+
 if __name__ == '__main__':
     # Check if database exists, if not, initialize
     if not os.path.exists(DATABASE):

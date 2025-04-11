@@ -4,14 +4,21 @@
 
 {% block content %}
     <h2>Welcome, Receptionist {{ session['username'] }}!</h2>
-    <div class="dashboard-actions">
-        <h3>Actions</h3>
-        <ul>
-            <li><a href="{{ url_for('check_patient') }}">Check Patient Records/Appointments</a></li>
-            <li><a href="{{ url_for('create_appointment') }}">Create Appointment</a></li>
-            <li><a href="{{ url_for('view_all_appointments') }}">View All Appointments</a></li>
-            <li><a href="{{ url_for('register_patient') }}">Register Patient</a></li>
-            <li><a href="{{ url_for('deregister_patient') }}">Deregister Patient</a></li>
-        </ul>
+    <div class="dashboard-container">
+        <div class="card">
+            <h3>Patient Management</h3>
+            <ul>
+                <li><a href="{{ url_for('view_patient_records') }}" class="button">View Patient Records</a></li>
+                <li><a href="{{ url_for('register_patient') }}" class="button">Register Patient</a></li>
+                <li><a href="{{ url_for('deregister_patient') }}" class="button">Deregister Patient</a></li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Appointment Management</h3>
+            <ul>
+                <li><a href="{{ url_for('create_appointment') }}" class="button">Create Appointment</a></li>
+                <li><a href="{{ url_for('view_all_appointments') }}" class="button">View All Appointments</a></li>
+            </ul>
+        </div>
     </div>
 {% endblock %}

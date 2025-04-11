@@ -4,21 +4,25 @@
 
 {% block content %}
     <h2>Welcome, {{ session['username'] }}!</h2>
-    <div class="dashboard-summary">
+    <div class="dashboard-container">
+        <div class="card">
+            <h3>Your Appointments</h3>
+            <ul>
+                <li><a href="{{ url_for('patient_view_appointments', status='upcoming') }}" class="button">View Upcoming Appointments</a></li>
+                <li><a href="{{ url_for('patient_view_appointments', status='past') }}" class="button">View Past Appointments</a></li>
+            </ul>
         </div>
-    <div class="dashboard-actions">
-        <h3>Your Appointments</h3>
-        <ul>
-            <li><a href="{{ url_for('patient_view_appointments', status='upcoming') }}">View Upcoming Appointments</a></li>
-            <li><a href="{{ url_for('patient_view_appointments', status='past') }}">View Past Appointments</a></li>
-        </ul>
-        <h3>Your Records</h3>
-        <ul>
-            <li><a href="{{ url_for('patient_view_records') }}">View Medical Records</a></li>
-        </ul>
-        <h3>Book Appointment</h3>
-        <ul>
-            <li><a href="{{ url_for('patient_book_appointment') }}">Schedule New Appointment</a></li>
-        </ul>
+        <div class="card">
+            <h3>Your Records</h3>
+            <ul>
+                <li><a href="{{ url_for('patient_view_records') }}" class="button">View Medical Records</a></li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Book Appointment</h3>
+            <ul>
+                <li><a href="{{ url_for('patient_book_appointment') }}" class="button">Schedule New Appointment</a></li>
+            </ul>
+        </div>
     </div>
 {% endblock %}

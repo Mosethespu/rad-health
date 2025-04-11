@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block title %}View Patient Records{% endblock %}
+
+{% block content %}
+    <h2>Patient Records</h2>
+    <form method="GET" action="{{ url_for('view_patient_records') }}">
+        <input type="text" name="search" placeholder="Search by name, email, or phone" value="{{ search_query }}">
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" value="{{ end_date }}">
+        <button type="submit">Filter</button>
+    </form>
+
+    {% if records %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Name</th>
+                    <th>Date of Birth</th>
+                    <th>Address</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Registration Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                    <tr>
+                        <td>{{ record.patient_id }}</td>
+                        <td>{{ record.name }}</td>
+                        <td>{{ record.date_of_birth }}</td>
+                        <td>{{ record.address }}</td>
+                        <td>{{ record.phone_number }}</td>
+                        <td>{{ record.email }}</td>
+                        <td>{{ record.registration_date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="{{ url_for('view_patient_records', page=page-1, search=search_query, start_date=start_date, end_date=end_date) }}">Previous</a>
+            {% endif %}
+            <span>Page {{ page }} of {{ total_pages }}</span>
+            {% if page < total_pages %}
+                <a href="{{ url_for('view_patient_records', page=page+1, search=search_query, start_date=start_date, end_date=end_date) }}">Next</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No patient records found.</p>
+    {% endif %}
+    <p><a href="{{ url_for('receptionist_dashboard') }}">Back to Dashboard</a></p>
+{% endblock %}

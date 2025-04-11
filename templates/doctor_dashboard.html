@@ -4,21 +4,23 @@
 
 {% block content %}
     <h2>Welcome, Doctor {{ session['username'] }}!</h2>
-    <div class="dashboard-summary">
+    <div class="dashboard-container">
+        <div class="card">
+            <h3>Your Appointments</h3>
+            <ul>
+                <li><a href="{{ url_for('doctor_view_appointments', status='today') }}" class="button">View Today's Appointments</a></li>
+                <li><a href="{{ url_for('doctor_view_appointments', status='upcoming') }}" class="button">View Upcoming Appointments</a></li>
+                <li><a href="{{ url_for('doctor_view_appointments', status='past') }}" class="button">View Past Appointments</a></li>
+                <li><a href="{{ url_for('doctor_view_appointments', status='active') }}" class="button">View Active Appointments</a></li>
+            </ul>
         </div>
-    <div class="dashboard-actions">
-        <h3>Your Appointments</h3>
-        <ul>
-            <li><a href="{{ url_for('doctor_view_appointments', status='today') }}">View Today's Appointments</a></li>
-            <li><a href="{{ url_for('doctor_view_appointments', status='upcoming') }}">View Upcoming Appointments</a></li>
-            <li><a href="{{ url_for('doctor_view_appointments', status='past') }}">View Past Appointments</a></li>
-            <li><a href="{{ url_for('doctor_view_appointments', status='active') }}">View Active Appointments (Ready for Consultation)</a></li>
-        </ul>
-        <h3>Emergency Services</h3>
-        <ul>
-            <li><a href="{{ url_for('create_emergency_appointment', service_type='maternity') }}">Register Maternity Service</a></li>
-            <li><a href="{{ url_for('create_emergency_appointment', service_type='hdu') }}">Record HDU Admission</a></li>
-            <li><a href="{{ url_for('create_emergency_appointment', service_type='surgery') }}">Record Emergency Surgery</a></li>
-        </ul>
+        <div class="card">
+            <h3>Emergency Services</h3>
+            <ul>
+                <li><a href="{{ url_for('create_emergency_appointment', service_type='maternity') }}" class="button">Register Maternity Service</a></li>
+                <li><a href="{{ url_for('create_emergency_appointment', service_type='hdu') }}" class="button">Record HDU Admission</a></li>
+                <li><a href="{{ url_for('create_emergency_appointment', service_type='surgery') }}" class="button">Record Emergency Surgery</a></li>
+            </ul>
+        </div>
     </div>
 {% endblock %}
